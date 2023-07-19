@@ -26,7 +26,7 @@ try:
 except:
     import tensorflow as tf
 from tensorflow.python.keras.utils.data_utils import get_file
-from tensorflow.python.keras.datasets.cifar import load_batch
+from tensorflow.keras.datasets.cifar10 import load_data
 
 from capslayer.data.utils.TFRecordHelper import int64_feature, bytes_feature
 
@@ -43,7 +43,7 @@ def load_cifar10(split, path=None):
     split = split.lower()
     if split == 'test':
         fpath = os.path.join(path, 'test_batch')
-        images, labels = load_batch(fpath)
+        images, labels = load_data(fpath)
     else:
         num_samples = 50000
         images = np.empty((num_samples, 3, 32, 32), dtype='uint8')
@@ -52,7 +52,7 @@ def load_cifar10(split, path=None):
         for i in range(1, 6):
             fpath = os.path.join(path, 'data_batch_' + str(i))
             (images[(i - 1) * 10000:i * 10000, :, :, :],
-             labels[(i - 1) * 10000:i * 10000]) = load_batch(fpath)
+             labels[(i - 1) * 10000:i * 10000]) = load_data(fpath)
 
         idx = np.arange(len(images))
         np.random.seed(201808)

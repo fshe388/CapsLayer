@@ -26,7 +26,7 @@ try:
 except:
     import tensorflow as tf
 from tensorflow.python.keras.utils.data_utils import get_file
-from tensorflow.python.keras.datasets.cifar import load_batch
+from tensorflow.keras.datasets.cifar100 import load_data
 
 from capslayer.data.utils.TFRecordHelper import int64_feature, bytes_feature
 
@@ -43,10 +43,10 @@ def load_cifar100(split, path=None):
     split = split.lower()
     if split == 'test':
         fpath = os.path.join(path, 'test')
-        images, labels = load_batch(fpath, label_key='fine_labels')
+        images, labels = load_data(fpath, label_key='fine_labels')
     else:
         fpath = os.path.join(path, 'train')
-        images, labels = load_batch(fpath, label_key='fine_labels')
+        images, labels = load_data(fpath, label_key='fine_labels')
 
         idx = np.arange(len(images))
         np.random.seed(201808)
